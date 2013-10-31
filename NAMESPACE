@@ -1,0 +1,20 @@
+useDynLib(fmcsR)
+
+## IMPORTS
+import(ChemmineR)
+
+## S4 Classes
+exportClasses(
+    "MCS"
+)
+
+## Methods
+exportMethods(
+    "stats", "mcs1", "mcs2", "[[", "coerce", "show"
+)
+
+## Functions
+export(
+    ## MCS functions
+    "fmcs", "fmcsBatch", "plotMCS", "mcs2sdfset"
+)
