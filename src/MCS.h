@@ -131,6 +131,7 @@ namespace FMCS {
         
         
         double timeUsed;
+		  clock_t startTime;
 
         std::list<MCSMap> bestList;
 

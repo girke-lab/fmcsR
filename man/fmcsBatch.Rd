@@ -8,7 +8,8 @@ Compound search function that runs the FMCS algorithm for a query compound again
 in an \code{SDFset} container.
 }
 \usage{
-fmcsBatch(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0, matching.mode = "static")
+fmcsBatch(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0,
+matching.mode = "static",timeout=0)
 }
 \arguments{
   \item{querySdf}{
@@ -32,6 +33,10 @@ Upper bound for the number of bond mismatches.
   \item{matching.mode}{
 Three matching mode are supported, "static", "aromatic", and "ring".
 }
+	\item{timeout}{
+		The maximum amount of time to spend on each pair of
+		comparisons, in milliseconds. The default value of 0 indicates no timeout.
+	}
 }
 \details{
 This function runs the FMCS algorithm in fast computing mode. Thus, it will only return the similarity scores and size information about the source structures and their MCSs, while omitting all structural information.
