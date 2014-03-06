@@ -4,7 +4,8 @@
 .packageName <- 'fmcsR'
 
 fmcsBatch <-
-function(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0, matching.mode = "static") {
+function(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0, 
+			matching.mode = "static",timeout=0) {
 
     if(class(querySdf)=="SDFset") querySdf <- querySdf[[1]]
     al = as.integer(al) 
@@ -37,8 +38,7 @@ function(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0, matching.mode = "stat
         
         result_data <- 
         .C('fmcs_R_wrap', s1, s2, al, au, bl, bu, 
-            matching.int, as.integer(0), as.integer(0), 
-            #idxOne="", idxTwo="",
+            matching.int, as.integer(0), as.integer(timeout), 
             sdfOne="", sdfTwo="",
             sdf1Size = "", sdf2Size = "", mcsSize = "", PACKAGE = 'fmcsR')
             

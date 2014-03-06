@@ -49,7 +49,7 @@ namespace FMCS {
     	  bondMismatchLowerBound(bondMismatchLower), bondMismatchUpperBound(bondMismatchUpper),
     	  matchType(matchType), runningMode(runningMode), _timeout(timeout),
     	  atomMismatchCurr(0), bondMismatchCurr(0), currSubstructureNum(0),
-    	  timeUsed(0.0),  bestSize(0), identicalGraph(false), _isTimeout(false),
+    	  timeUsed(0.0),startTime(0),  bestSize(0), identicalGraph(false), _isTimeout(false),
     	  haveBeenSwapped(compoundOne.size() > compoundTwo.size() ? true : false) {
 
     		  timeoutStop = false;
@@ -81,6 +81,7 @@ namespace FMCS {
         alarm(_timeout);
 #endif*/
         clock_t start = clock();
+		  startTime=start;
 #ifdef HAVE_LIBOPENBABEL
         if (compoundOne.getSmiString() == compoundTwo.getSmiString()) {
 #else
@@ -293,6 +294,13 @@ namespace FMCS {
     }
     
     void MCS::boundary() {
+        double diff = (double)(clock() - startTime) / CLOCKS_PER_SEC * 1000 ;
+		  //printf("%f  at boundary. timeout: %d\n",diff,_timeout);
+		  if(!timeoutStop && _timeout != 0 && diff >= _timeout){
+			  printf( "ATTENTION: Timed out after %f ms. Calculation may be incomplete, using best result so far.\n",diff);
+			  timeoutStop = true;
+		  }
+
         if (runningMode == FAST) {
             if (currentMapping.size() > bestSize) {
                 
