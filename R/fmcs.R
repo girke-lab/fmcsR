@@ -4,7 +4,7 @@
 .packageName <- 'fmcsR'
 
 fmcs <-
-function(sdf1, sdf2, al = 0, au = 0, bl = 0, bu = 0, matching.mode = "static", fast = FALSE) {
+function(sdf1, sdf2, al = 0, au = 0, bl = 0, bu = 0, matching.mode = "static", fast = FALSE, timeout=0) {
     if(class(sdf1)=="SDF") sdf1_name <- "CMP1" 
     if(class(sdf1)=="SDFset") {
         sdf1_name <- cid(sdf1) 
@@ -43,17 +43,19 @@ function(sdf1, sdf2, al = 0, au = 0, bl = 0, bu = 0, matching.mode = "static", f
  
     matching.int = as.integer(matching.int)
     running.mode = as.integer(running.mode)
+	 timeout = as.integer(timeout)
+
  
     result_data = 
         .C('fmcs_R_wrap', s1, s2, al, au, bl, bu, 
-            matching.int, running.mode, 0, 
+            matching.int, running.mode, timeout, 
             idxOne="", idxTwo="",
             sdf1Size = "", sdf2Size = "", mcsSize = "", PACKAGE = 'fmcsR')
             
     querySize = as.integer(result_data$sdf1Size)
     targetSize = as.integer(result_data$sdf2Size)
     mcs = as.integer(result_data$mcsSize)
-   
+
     stats <- c(Query_Size=querySize, Target_Size=targetSize, MCS_Size=mcs, Tanimoto_Coefficient=(mcs/(querySize + targetSize - mcs)), Overlap_Coefficient=(mcs/min(c(querySize, targetSize)))) 
     if (fast) {
         return(stats)

@@ -7,7 +7,8 @@ Flexible MCS (FMCS) Finder
 R function to call the C++ implementation of the flexible common substructure (FMCS) algorithm. The FMCS algorithm provides an improved maximum common substructure (MCS) search method that allows atom and/or bond mismatches in the substructures shared among two small molecules. The resulting flexible MCSs (FMCSs) are often larger than strict MCSs, resulting in the identification of more common features in their source structures, as well as a higher sensitivity in detecting weak similarities among compounds.
 }
 \usage{
-fmcs(sdf1, sdf2, al = 0, au = 0, bl = 0, bu = 0, matching.mode = "static", fast = FALSE)
+fmcs(sdf1, sdf2, al = 0, au = 0, bl = 0, bu = 0, matching.mode =
+	  "static", fast = FALSE, timeout=0)
 }
 \arguments{
   \item{sdf1}{
@@ -34,6 +35,10 @@ Three modes for bond matching are supported: "static", "aromatic", and "ring".
   \item{fast}{
 If \code{fast} is set to \code{TURE}, then the fast computing mode will be turned on. In this case, the algorithm will only return the size information about the source structures and their MCSs, while omitting all structural information.
 }
+	\item{timeout}{
+		The maximum amount of time to spend searching, in milliseconds.
+		A value of 0 indicates no timeout and is the default.
+	}
 }
 \details{
 ...
