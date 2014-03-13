@@ -4,7 +4,8 @@
 .packageName <- 'fmcsR'
 
 fmcs <-
-function(sdf1, sdf2, al = 0, au = 0, bl = 0, bu = 0, matching.mode = "static", fast = FALSE, timeout=0) {
+function(sdf1, sdf2, al = 0, au = 0, bl = 0, bu = 0, 
+			matching.mode = "static", fast = FALSE, timeout=60000) {
     if(class(sdf1)=="SDF") sdf1_name <- "CMP1" 
     if(class(sdf1)=="SDFset") {
         sdf1_name <- cid(sdf1) 

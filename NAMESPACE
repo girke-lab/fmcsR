@@ -1,7 +1,7 @@
 useDynLib(fmcsR)
 
 ## IMPORTS
-import(ChemmineR)
+import(ChemmineR,parallel)
 
 ## S4 Classes
 exportClasses(
