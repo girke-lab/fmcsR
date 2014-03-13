@@ -9,7 +9,7 @@ in an \code{SDFset} container.
 }
 \usage{
 fmcsBatch(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0,
-matching.mode = "static",timeout=0)
+matching.mode = "static",timeout=60000,numParallel=1)
 }
 \arguments{
   \item{querySdf}{
@@ -35,7 +35,10 @@ Three matching mode are supported, "static", "aromatic", and "ring".
 }
 	\item{timeout}{
 		The maximum amount of time to spend on each pair of
-		comparisons, in milliseconds. The default value of 0 indicates no timeout.
+		comparisons, in milliseconds. A value of 0 indicates no timeout.
+	}
+	\item{numParallel}{
+		The number of comparisons to run in parallel, using local cores.
 	}
 }
 \details{

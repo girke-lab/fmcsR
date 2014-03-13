@@ -8,7 +8,7 @@ R function to call the C++ implementation of the flexible common substructure (F
 }
 \usage{
 fmcs(sdf1, sdf2, al = 0, au = 0, bl = 0, bu = 0, matching.mode =
-	  "static", fast = FALSE, timeout=0)
+	  "static", fast = FALSE, timeout=60000)
 }
 \arguments{
   \item{sdf1}{
@@ -37,7 +37,7 @@ If \code{fast} is set to \code{TURE}, then the fast computing mode will be turne
 }
 	\item{timeout}{
 		The maximum amount of time to spend searching, in milliseconds.
-		A value of 0 indicates no timeout and is the default.
+		A value of 0 indicates no timeout.
 	}
 }
 \details{

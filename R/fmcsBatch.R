@@ -5,7 +5,7 @@
 
 fmcsBatch <-
 function(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0, 
-			matching.mode = "static",timeout=0) {
+			matching.mode = "static",timeout=60000,numParallel=1) {
 
     if(class(querySdf)=="SDFset") querySdf <- querySdf[[1]]
     al = as.integer(al) 
@@ -30,12 +30,14 @@ function(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0,
     
     targetSize <- numeric(length(sdfset))
     mcsSize <- numeric(length(sdfset))
-	 warningCount <- 0
-    
-    for (i in 1:length(sdfset)) {
-        # print(i)
-        s2 <- as(sdfset[[i]], "character")
+
+	 score = function(targetSdf){
+		  library(ChemmineR)
+		  library(fmcsR)
+		  #print(sdfid(targetSdf))
+        s2 <- as(targetSdf, "character")
         s2 <- paste(s2, collapse="\n")
+		  warningCount <- 0
         
 		  suppressWarnings(
 			  withCallingHandlers(
@@ -46,13 +48,26 @@ function(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0,
 						sdf1Size = "", sdf2Size = "", mcsSize = "", PACKAGE = 'fmcsR')
 				  , warning = function(w) warningCount <<- warningCount + 1))
      
+		  data.frame(querySize  = as.integer(result_data$sdf1Size),
+				 targetSize = as.integer(result_data$sdf2Size),
+				 mcsSize    = as.integer(result_data$mcsSize),
+				 warningCount = warningCount) 
+	 }
+	 environment(score) =  new.env(parent=globalenv())
 
-           
-        querySize <- as.integer(result_data$sdf1Size)
-        targetSize[i] <- as.integer(result_data$sdf2Size)
-        mcsSize[i] <- as.integer(result_data$mcsSize)
-        
-    }
+	 cl = makeCluster(numParallel,outfile="")
+	 clusterExport(cl,c("matching.int","timeout","s1","al","au","bl","bu"),
+						envir=environment())
+
+	 results = Reduce(rbind,clusterApplyLB(cl,sdfset,score))
+	 stopCluster(cl)
+
+	 querySize = results$querySize[1]
+	 targetSize = results$targetSize
+	 mcsSize = results$mcsSize
+	 warningCount = sum(results$warningCount)
+
+    
     minsize <- ifelse(querySize < targetSize, querySize, targetSize)
     tanimoto <- mcsSize/(querySize + targetSize - mcsSize)
     overlap <- mcsSize/minsize
