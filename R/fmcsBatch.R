@@ -30,18 +30,24 @@ function(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0,
     
     targetSize <- numeric(length(sdfset))
     mcsSize <- numeric(length(sdfset))
+	 warningCount <- 0
     
     for (i in 1:length(sdfset)) {
         # print(i)
         s2 <- as(sdfset[[i]], "character")
         s2 <- paste(s2, collapse="\n")
         
-        result_data <- 
-        .C('fmcs_R_wrap', s1, s2, al, au, bl, bu, 
-            matching.int, as.integer(0), as.integer(timeout), 
-            sdfOne="", sdfTwo="",
-            sdf1Size = "", sdf2Size = "", mcsSize = "", PACKAGE = 'fmcsR')
-            
+		  suppressWarnings(
+			  withCallingHandlers(
+				  result_data <- 
+				  .C('fmcs_R_wrap', s1, s2, al, au, bl, bu, 
+						matching.int, as.integer(0), as.integer(timeout), 
+						sdfOne="", sdfTwo="",
+						sdf1Size = "", sdf2Size = "", mcsSize = "", PACKAGE = 'fmcsR')
+				  , warning = function(w) warningCount <<- warningCount + 1))
+     
+
+           
         querySize <- as.integer(result_data$sdf1Size)
         targetSize[i] <- as.integer(result_data$sdf2Size)
         mcsSize[i] <- as.integer(result_data$mcsSize)
@@ -52,6 +58,10 @@ function(querySdf, sdfset, al = 0, au = 0, bl = 0, bu = 0,
     overlap <- mcsSize/minsize
     searchMA <- cbind(Query_Size = querySize, Target_Size = targetSize, MCS_Size = mcsSize, Tanimoto_Coefficient = tanimoto, Overlap_Coefficient = overlap) 
     rownames(searchMA) <- cid(sdfset)
+
+	 if(warningCount != 0)
+		 warning(warningCount," comparisons exeeded the timeout of ",
+					timeout,"ms and did not complete")
     return(searchMA)
 }
 

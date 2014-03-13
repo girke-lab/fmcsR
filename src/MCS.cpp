@@ -20,6 +20,8 @@ using namespace OpenBabel;
 #include <iostream>
 #include <fstream>
 
+#include <R.h>
+
 //#ifndef WINDOWS
 //#include <signal.h>
 //#endif
@@ -297,7 +299,7 @@ namespace FMCS {
         double diff = (double)(clock() - startTime) / CLOCKS_PER_SEC * 1000 ;
 		  //printf("%f  at boundary. timeout: %d\n",diff,_timeout);
 		  if(!timeoutStop && _timeout != 0 && diff >= _timeout){
-			  printf( "ATTENTION: Timed out after %f ms. Calculation may be incomplete, using best result so far.\n",diff);
+			  warning("FMCS did not complete, timeout of %dms exceeded\n",_timeout);
 			  timeoutStop = true;
 		  }
 
