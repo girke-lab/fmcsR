@@ -3,7 +3,7 @@
 
 #include "../config.h"
 
-#include <ctime.h>
+#include <ctime>
 #include <iostream>
 #include <list>
 #include <string>
