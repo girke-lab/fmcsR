@@ -1,0 +1,26 @@
+Package: fmcsR
+Type: Package
+Title: Mismatch Tolerant Maximum Common Substructure Searching
+Version: 1.6.0
+Date: 2014-3-25
+Author: Yan Wang, Tyler Backman, Kevin Horan, Thomas Girke
+Maintainer: ChemmineR Team <see@url>
+Description: The fmcsR package introduces an efficient maximum common
+        substructure (MCS) algorithms combined with a novel matching
+        strategy that allows for atom and/or bond mismatches in the
+        substructures shared among two small molecules. The resulting
+        flexible MCSs (FMCSs) are often larger than strict MCSs,
+        resulting in the identification of more common features in
+        their source structures, as well as a higher sensitivity in
+        finding compounds with weak structural similarities. The fmcsR
+        package provides several utilities to use the FMCS algorithm
+        for pairwise compound comparisons, structure similarity
+        searching and clustering.
+Depends: R (>= 2.10.0), ChemmineR, methods
+Suggests: BiocStyle
+License: Artistic-2.0
+LazyLoad: yes
+URL: http://manuals.bioinformatics.ucr.edu/home/chemminer
+biocViews: MicrotitrePlateAssay, CellBasedAssays, Visualization,
+        Infrastructure, DataImport, Clustering, Proteomics
+Imports: RUnit, methods,ChemmineR, BiocGenerics,parallel
