@@ -30,7 +30,7 @@ BiocStyle::latex(use.unsrturl=FALSE)
 %\newcommand{\Robject}[1]{{\texttt{#1}}}
 %\newcommand{\Rpackage}[1]{{\textit{#1}}}
 %\newcommand{\Rmethod}[1]{{\texttt{#1}}}
-\newcommand{\Rfunarg}[1]{{\texttt{#1}}}
+\newcommand{\Rfunarg}[1]{{\texttt{`#1`}}}
 %\newcommand{\Rclass}[1]{{\textit{#1}}}
 	
 % Define header and footer area with fandyhdr package (see: http://www.ctan.org/tex-archive/macros/latex/contrib/fancyhdr/fancyhdr.pdf)
