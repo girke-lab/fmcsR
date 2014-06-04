@@ -41,6 +41,8 @@ namespace FMCS {
             } else if (runningMode == FAST)
                 return bestSize;
             else {
+					 if(bestList.size()==0)
+						 return 0;
                 return bestList.front().size(); 
             }
         }
