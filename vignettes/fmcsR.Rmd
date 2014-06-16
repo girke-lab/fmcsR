@@ -10,7 +10,6 @@
 ```{r echo=FALSE, results='hide',message=FALSE,warning=FALSE,error=FALSE}
 options(width=120)
 library(fmcsR) 
-library(ChemmineOB)
 library(knitcitations)
 citep(c("10.1093/bioinformatics/btn186")) # first citatin always causes an error, so hide one here
 ```

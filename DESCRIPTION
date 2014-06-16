@@ -17,7 +17,7 @@ Description: The fmcsR package introduces an efficient maximum common
         for pairwise compound comparisons, structure similarity
         searching and clustering.
 Depends: R (>= 2.10.0), ChemmineR, methods
-Suggests: BiocStyle,knitr,knitcitations,ChemmineOB
+Suggests: BiocStyle,knitr,knitcitations
 License: Artistic-2.0
 LazyLoad: yes
 URL: http://manuals.bioinformatics.ucr.edu/home/chemminer
