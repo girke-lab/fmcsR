@@ -1,0 +1,2 @@
+library(knitcitations)
+bib_metadata("10.1093/bioinformatics/btt475")
