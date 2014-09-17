@@ -12,9 +12,15 @@ options(width=120)
 library(fmcsR) 
 library(knitcitations)
 library(ChemmineOB)
-RefManageR:::BibOptions(style="markdown")
+RefManageR:::BibOptions(style="markdown",no.print.fields=c("doi"))
 ```
 
+fmcsR: Mismatch Tolerant Maximum Common Substructure Detection for Advanced Compound Similarity Searching
+=========================
+
+Yan Wang, Tyler Backman, Kevin Horan, Thomas Girke
+
+Last update: `r format(Sys.time(),"%B %d, %Y")`
 
 Introduction
 ============
@@ -285,6 +291,17 @@ Version Information
 References
 ===========
 ```{r biblio, echo=FALSE, results='asis'}
-   bibliography()
+  #hack to get rid of latex code returned by certain doi sites (e.g. crosscite.org)
+      fix = function(t)  gsub("\\$\\\\(l|r)brace\\$", "", t)
+      suppressWarnings({
+         sink(tempfile())
+         b<<-bibliography()
+         sink(NULL)
+      })   
+   
+      for(i in 1:length(b))
+         b[i]$title = fix(b[i]$title)
+      b
+
 ```
 

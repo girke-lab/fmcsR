@@ -1,8 +1,8 @@
 Package: fmcsR
 Type: Package
 Title: Mismatch Tolerant Maximum Common Substructure Searching
-Version: 1.7.7
-Date: 2014-8-17
+Version: 1.7.8
+Date: 2014-9-17
 Author: Yan Wang, Tyler Backman, Kevin Horan, Thomas Girke
 Maintainer: ChemmineR Team <see@url>
 Description: The fmcsR package introduces an efficient maximum common
@@ -17,7 +17,7 @@ Description: The fmcsR package introduces an efficient maximum common
         for pairwise compound comparisons, structure similarity
         searching and clustering.
 Depends: R (>= 2.10.0), ChemmineR, methods
-Suggests: BiocStyle,knitr,knitcitations
+Suggests: BiocStyle,knitr,knitcitations,knitrBootstrap
 License: Artistic-2.0
 LazyLoad: yes
 URL: http://manuals.bioinformatics.ucr.edu/home/chemminer
