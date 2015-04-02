@@ -13,6 +13,7 @@ library(fmcsR)
 library(knitcitations)
 library(ChemmineOB)
 RefManageR:::BibOptions(style="markdown",no.print.fields=c("doi"))
+sapply(read.bibtex(file="references.bib"),record_as_cited)
 ```
 
 fmcsR: Mismatch Tolerant Maximum Common Substructure Detection for Advanced Compound Similarity Searching
@@ -31,7 +32,7 @@ among small molecules. This utility is critical for many research areas
 in drug discovery and chemical genomics. The MCS problem is a
 graph-based similarity concept that is defined as the largest
 substructure (sub-graph) shared among two compounds
-`r citep(c("10.1093/bioinformatics/btt475","10.1093/bioinformatics/btn186"))`.
+`r citep(c("Wang2013a","Cao2008a"))`.
 It fundamentally differs from the
 structural descriptor-based strategies like fingerprints or structural
 keys. Another strength of the MCS approach is the identification of the
@@ -47,13 +48,13 @@ among compounds containing atom and/or bond mismatches. In contrast to
 this, other MCS algorithms find only exact MCSs that are perfectly
 contained in two molecules. The details about the FMCS algorithm are
 described in the Supplementary Materials Section of the associated
-publication `r citep("10.1093/bioinformatics/btt475")`. The package provides several utilities to
+publication `r citep("Wang2013a")`. The package provides several utilities to
 use the FMCS algorithm for pairwise compound comparisons, structure
 similarity searching and clustering. To maximize performance, the time
 consuming computational steps of are implemented in C++. Integration
 with the package provides visualization functionalities of MCSs and
 consistent structure and substructure data handling routines
-`r citep(c("10.1093/bioinformatics/btn307","10.1093/nar/gkr320"))`. 
+`r citep(c("Cao2008c","Backman2011a"))`. 
 The following gives an overview of the most important functionalities provided by .
 
 Installation
