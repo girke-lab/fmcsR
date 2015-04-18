@@ -42,7 +42,7 @@ is often more intuitive to interpret and chemically more meaningful than
 the purely numeric information returned by descriptor-based approaches.
 Because the MCS problem is NP-complete, an efficient algorithm is
 essential to minimize the compute time of its extremely complex search
-process. The package implements an efficient backtracking algorithm that
+process. The *fmcsR* package implements an efficient backtracking algorithm that
 introduces a new flexible MCS (FMCS) matching strategy to identify MCSs
 among compounds containing atom and/or bond mismatches. In contrast to
 this, other MCS algorithms find only exact MCSs that are perfectly
@@ -51,11 +51,12 @@ described in the Supplementary Materials Section of the associated
 publication `r citep("Wang2013a")`. The package provides several utilities to
 use the FMCS algorithm for pairwise compound comparisons, structure
 similarity searching and clustering. To maximize performance, the time
-consuming computational steps of are implemented in C++. Integration
-with the package provides visualization functionalities of MCSs and
+consuming computational steps of *fmcsR* are implemented in C++. Integration
+with the *ChemmineR* package provides visualization functionalities of MCSs and
 consistent structure and substructure data handling routines
 `r citep(c("Cao2008c","Backman2011a"))`. 
-The following gives an overview of the most important functionalities provided by .
+The following gives an overview of the most important functionalities provided by 
+*fmcsR*.
 
 Installation
 ============
