@@ -61,9 +61,9 @@ The following gives an overview of the most important functionalities provided b
 Installation
 ============
 
-The R software for running and can be downloaded from CRAN
-(<http://cran.at.r-project.org/>). The package can be installed from an
-open R session using the install command. 
+The R software for running *fmcsR* and *ChemmineR* can be downloaded from CRAN
+(<http://cran.at.r-project.org/>). The *fmcsR* package can be installed from an
+open R session using the *biocLite* install command. 
 ```{r eval=FALSE}
 source("http://bioconductor.org/biocLite.R") 
 biocLite("fmcsR") 
@@ -73,8 +73,8 @@ biocLite("fmcsR")
 Quick Overview
 ==============
 
-To demo the main functionality of the package, one can load its sample
-data stored as object. The generic function can be used to visualize the
+To demo the main functionality of the *fmcsR* package, one can load its sample
+data stored as *SDFset* object. The generic *plot* function can be used to visualize the
 corresponding structures. 
 ```{r quicktest1, eval=TRUE, fig=TRUE,fig.scap="Structures depictions of sample data." }
 library(fmcsR) 
@@ -83,8 +83,8 @@ plot(fmcstest[1:3], print=FALSE)
 ```
 
 
-The function computes the MCS/FMCS shared among two compounds, which can
-be highlighted in their structure with the function. 
+The *fmcs* function computes the MCS/FMCS shared among two compounds, which can
+be highlighted in their structure with the *plotMCS* function. 
 ```{r quicktest2, eval=TRUE, fig=TRUE}
 test <- fmcs(fmcstest[1], fmcstest[2], au=2, bu=1) 
 plotMCS(test,regenCoords=TRUE) 
@@ -123,8 +123,8 @@ MCS of Two Compounds
 Data Import
 -----------
 
-The following loads the sample data set provided by the package. It
-contains the SD file (SDF) of molecules stored in an object.
+The following loads the sample data set provided by the *fmcsR* package. It
+contains the SD file (SDF) of 3 molecules stored in an *SDFset* object.
 
 ```{r eval=TRUE, keep.source=TRUE}
 data(fmcstest) 
@@ -133,10 +133,10 @@ sdfset
 ```
 
 
-Custom compound data sets can be imported and exported with the and
-functions, respectively. The following demonstrates this by exporting
-the object to a file named sdfset.sdf. The latter is then reimported
-into R with the function. 
+Custom compound data sets can be imported and exported with the *read.SDFset*
+and *write.SDF* functions, respectively. The following demonstrates this by
+exporting the *sdfset* object to a file named *sdfset.sdf*. The latter is then reimported
+into R with the *read.SDFset* function. 
 ```{r eval=FALSE, keep.source=TRUE}
 write.SDF(sdfset, file="sdfset.sdf") 
 mysdf <- read.SDFset(file="sdfset.sdf") 
@@ -146,8 +146,8 @@ mysdf <- read.SDFset(file="sdfset.sdf")
 Compute MCS
 -----------
 
-The function accepts as input two molecules provided as or objects. Its
-output is an S4 object of class . The default printing behavior
+The *fmcs* function accepts as input two molecules provided as *SDF* or *SDFset* objects. Its
+output is an S4 object of class *MCS*. The default printing behavior
 summarizes the MCS result by providing the number of MCSs it found, the
 total number of atoms in the query compound $a$, the total number of
 atoms in the target compound $b$, the number of atoms in their MCS $c$
@@ -164,8 +164,8 @@ mcsb
 ```
 
 
-If is run with then it returns the numeric summary information in a
-named . 
+If *fmcs* is run with *fast=TRUE* then it returns the numeric summary information in a
+named *vector*. 
 ```{r eval=TRUE, keep.source=TRUE}
 fmcs(sdfset[1], sdfset[2], fast=TRUE)
 ```
@@ -174,14 +174,14 @@ fmcs(sdfset[1], sdfset[2], fast=TRUE)
  Class Usage
 ------------
 
-The class contains three components named , and . The slot stores the
+The *MCS* class contains three components named *stats*, *mcs1* and *mcs2*. The *stats* slot stores the
 numeric summary information, while the structural MCS information for
-the query and target structures is stored in the and slots,
-respectively. The latter two slots each contain a with two
-subcomponents: the original query/target structures as objects as well
+the query and target structures is stored in the *mcs1* and *mcs2* slots,
+respectively. The latter two slots each contain a *list* with two
+subcomponents: the original query/target structures as *SDFset* objects as well
 as one or more numeric index vector(s) specifying the MCS information in
-form of the row positions in the atom block of the corresponding . A
-call to will often return several index vectors. In those cases the
+form of the row positions in the atom block of the corresponding *SDFset*. A
+call to *fmcs* will often return several index vectors. In those cases the
 algorithm has identified alternative MCSs of equal size. 
 ```{r eval=TRUE, keep.source=TRUE}
 slotNames(mcsa) 
@@ -189,7 +189,7 @@ slotNames(mcsa)
 
 
 Accessor methods are provided to return the different data components of
-the class. 
+the *MCS* class. 
 ```{r eval=TRUE, keep.source=TRUE}
 stats(mcsa) # or mcsa[["stats"]] 
 mcsa1 <- mcs1(mcsa) # or mcsa[["mcs1"]] 
@@ -199,18 +199,18 @@ mcsa1[[2]][1:2] # return first two index vectors
 ```
 
 
-The function can be used to return the substructures stored in an
-instance as object. If new atom numbers will be assigned to the
-subsetted SDF, while will maintain the atom numbers from its source. For
-details consult the help documents and . 
+The *mcs2sdfset* function can be used to return the substructures stored in an
+*MCS * instance as *SDFset* object. If *type='new'* new atom numbers will be assigned to the
+subsetted SDF, while *type='old'* will maintain the atom numbers from its source. For
+details consult the help documents *?mcs2sdfset* and *?atomsubset*. 
 ```{r eval=TRUE, fig=TRUE, keep.source=TRUE}
 mcstosdfset <- mcs2sdfset(mcsa, type="new")
 plot(mcstosdfset[[1]], print=FALSE) 
 ```
 
 
-To construct an object manually, one can provide the required data
-components in a . 
+To construct an *MCS* object manually, one can provide the required data
+components in a *list*. 
 ```{r eval=TRUE, keep.source=TRUE}
 mylist <- list(stats=stats(mcsa), mcs1=mcs1(mcsa), mcs2=mcs2(mcsa)) 
 as(mylist, "MCS") 
@@ -220,10 +220,10 @@ as(mylist, "MCS")
 FMCS of Two Compounds
 =====================
 
-If is run with its default paramenters then it returns the MCS of two
+If *fmcs* is run with its default paramenters then it returns the MCS of two
 compounds, because the mismatch parameters are all set to zero. To
-identify FMCSs, one has to raise the number of upper bound atom mismates
-and/or bond mismatches to interger values above zero.
+identify FMCSs, one has to raise the number of upper bound atom mismatches *au*
+and/or bond mismatches *bu* to interger values above zero.
 
 
 ```{r au0bu0, eval=TRUE, fig=TRUE}
@@ -247,8 +247,8 @@ plotMCS(fmcs(sdfset[1], sdfset[3], au=0, bu=0))
 FMCS Search Functionality
 =========================
 
-The function provides FMCS search functionality for compound collections
-stored in objects. 
+The *fmcsBatch* function provides FMCS search functionality for compound collections
+stored in *SDFset* objects. 
 ```{r eval=TRUE, keep.source=TRUE}
 data(sdfsample) # Loads larger sample data set 
 sdf <- sdfsample 
@@ -259,10 +259,10 @@ fmcsBatch(sdf[1], sdf[1:30], au=0, bu=0)
 Clustering with FMCS
 ====================
 
-The function can be used to compute a similarity matrix for clustering
+The *fmcsBatch* function can be used to compute a similarity matrix for clustering
 with various algorithms available in R. The following example uses the
 FMCS algorithm to compute a similarity matrix that is used for
-hierarchical clustering with the function and the result is plotted in
+hierarchical clustering with the *hclust* function and the result is plotted in
 form of a dendrogram. 
 ```{r tree, eval=TRUE, fig=TRUE}
 sdf <- sdf[1:7] 
@@ -275,7 +275,7 @@ plot(as.dendrogram(hc), edgePar=list(col=4, lwd=2), horiz=TRUE)
 
 
 The FMCS shared among compound pairs of interest can be visualized 
-with, here for the two most similar compounds from the previous tree:
+with *plotMCS*, here for the two most similar compounds from the previous tree:
 
 ```{r au0bu024, eval=TRUE, fig=TRUE}
 plotMCS(fmcs(sdf[3], sdf[7], au=0, bu=0, matching.mode="aromatic")) 
