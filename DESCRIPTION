@@ -1,8 +1,8 @@
 Package: fmcsR
 Type: Package
 Title: Mismatch Tolerant Maximum Common Substructure Searching
-Version: 1.13.1
-Date: 2015-06-05
+Version: 1.13.2
+Date: 2016-01-02
 Author: Yan Wang, Tyler Backman, Kevin Horan, Thomas Girke
 Maintainer: Thomas Girke <thomas.girke@ucr.edu>
 Description: The fmcsR package introduces an efficient maximum common
@@ -17,7 +17,7 @@ Description: The fmcsR package introduces an efficient maximum common
         for pairwise compound comparisons, structure similarity
         searching and clustering.
 Depends: R (>= 2.10.0), ChemmineR, methods
-Suggests: BiocStyle,knitr,knitcitations,knitrBootstrap
+Suggests: BiocStyle, knitr, knitcitations, knitrBootstrap
 License: Artistic-2.0
 LazyLoad: yes
 URL: https://github.com/girke-lab/fmcsR
