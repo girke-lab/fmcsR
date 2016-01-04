@@ -1,6 +1,6 @@
 ---
 title: "_fmcsR_: Mismatch Tolerant Maximum Common Substructure Detection for Advanced Compound Similarity Searching"
-author: "Authors: Yan Wang, Tyler Backman, Kevin Horan, [Thomas Girke](thomas.girke@ucr.edu)"
+author: "Authors: Yan Wang, Tyler Backman, Kevin Horan, [Thomas Girke](mailto:thomas.girke@ucr.edu)"
 date: "Last update: `r format(Sys.time(), '%d %B, %Y')`" 
 package: "`r pkg_ver('fmcsR')`"
 output:
